@@ -1,0 +1,32 @@
+import com.aws.sns.dto.CardDetails;
+import com.aws.sns.dto.DiscountDetails;
+
+global com.aws.sns.dto.DiscountDetails discountDetailsObject;
+
+
+rule "HDFC"
+
+when
+CardDetails(cardName=="HDFC" && cardType=="CREDIT") 
+DiscountDetails(price>10000 && orderCategory=="ELECTRONICS" );
+then
+discountDetailsObject.setDiscount(10);
+end;
+
+rule "AXIS"
+
+when
+cardDetailsObject : CardDetails(cardName=="AXIS" && cardType=="DEBIT") 
+DiscountDetails(price>15000 && orderCategory=="LIFESTYLE" );
+then
+discountDetailsObject.setDiscount(5);
+end;
+
+rule "SBI"
+
+when
+cardDetailsObject : CardDetails(cardName=="SBI" && cardType=="CREDIT")
+DiscountDetails(price>5000 && orderCategory=="ELECTRONICS" );
+then
+discountDetailsObject.setDiscount(8);
+end;
